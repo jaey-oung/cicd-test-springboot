@@ -16,13 +16,20 @@ public class TestController {
         this.webClient = webClientBuilder.baseUrl("http://localhost:8000").build();
     }
 
-    // 연동 테스트 엔드포인트: SpringBoot → FastAPI → 응답 반환
+    // 연동 테스트 엔드포인트: React → SpringBoot → Python
     @GetMapping("/test")
-    public Mono<String> testConnection() {
+    public Mono<String> test() {
         return webClient.get()
                 .uri("/test")
                 .retrieve()
                 .bodyToMono(String.class)
-                .map(response -> "SpringBoot → Python 연동 테스트 성공: " + response);
+                .map(response -> "React → SpringBoot → Python 연동 테스트 성공: " + response);
+    }
+
+    // 연동 테스트 엔드포인트: React → SpringBoot
+    @GetMapping("/test2")
+    public String test2() {
+        return "React → SpringBoot 연동 테스트 성공!";
     }
 }
+
